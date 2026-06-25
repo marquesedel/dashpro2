@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Plus, Edit2, Check, Trash2, AlertTriangle, FileText, Eye, Receipt } from 'lucide-react'
+import { ArrowLeft, Plus, Edit2, Check, Trash2, AlertTriangle, FileText, Eye, Receipt, ListChecks, type LucideIcon } from 'lucide-react'
 import {
   useProject, useActions, useCreateAction, useUpdateAction, useDeleteAction,
   useRisks, useCreateRisk, useUpdateRisk, useDeleteRisk, useProfiles,
@@ -230,11 +230,11 @@ export default function ProjectDetail() {
     )
   }
 
-  const tabs: { id: Tab; label: string; count?: number }[] = [
-    { id: 'acoes', label: 'Ações', count: actions?.length },
-    { id: 'riscos', label: 'Riscos', count: risks?.length },
-    { id: 'gastos', label: 'Gastos', count: expenses?.length },
-    { id: 'relatorios', label: 'Relatórios', count: reports?.length },
+  const tabs: { id: Tab; label: string; icon: LucideIcon; count?: number }[] = [
+    { id: 'acoes', label: 'Ações', icon: ListChecks, count: actions?.length },
+    { id: 'riscos', label: 'Riscos', icon: AlertTriangle, count: risks?.length },
+    { id: 'gastos', label: 'Gastos', icon: Receipt, count: expenses?.length },
+    { id: 'relatorios', label: 'Relatórios', icon: FileText, count: reports?.length },
   ]
 
   const analysts = profiles?.filter(p => p.role === 'analista') ?? []
@@ -277,23 +277,34 @@ export default function ProjectDetail() {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-border flex gap-1">
-          {tabs.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className={`px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px ${
-                tab === t.id
-                  ? 'border-accent text-accent'
-                  : 'border-transparent text-muted hover:text-foreground'
-              }`}
-            >
-              {t.label}
-              {t.count !== undefined && (
-                <span className="ml-1.5 text-xs bg-black/5 rounded-full px-1.5 py-0.5">{t.count}</span>
-              )}
-            </button>
-          ))}
+        <div className="border-b border-border flex gap-4">
+          {tabs.map(t => {
+            const Icon = t.icon
+            const isActive = tab === t.id
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={cn(
+                  'inline-flex items-center gap-2 px-5 py-3 text-base font-medium transition-colors border-b-2 -mb-px',
+                  isActive
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-muted hover:text-foreground',
+                )}
+              >
+                <Icon className="h-4 w-4 flex-shrink-0" />
+                {t.label}
+                {t.count !== undefined && (
+                  <span className={cn(
+                    'ml-0.5 text-xs rounded-full px-2 py-0.5 min-w-[1.25rem] text-center',
+                    isActive ? 'bg-accent/10 text-accent' : 'bg-black/5 text-muted',
+                  )}>
+                    {t.count}
+                  </span>
+                )}
+              </button>
+            )
+          })}
         </div>
 
         {/* Ações Tab */}
