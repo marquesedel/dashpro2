@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import type { ProjectStatus, ActionStatus, RiskProbability, RiskImpact, RiskStatus, ReportType } from '@/types'
+import type { ProjectStatus, ActionStatus, RiskProbability, RiskImpact, RiskStatus, ReportType, ExpenseCategory, ExpenseStatus } from '@/types'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -43,6 +43,14 @@ export const PROJECT_STATUS_COLOR: Record<ProjectStatus, string> = {
   nao_iniciado: 'text-muted bg-muted/10',
 }
 
+export const PROJECT_STATUS_ROW_STYLE: Record<ProjectStatus, { border: string; hover: string; progress: string }> = {
+  em_andamento: { border: 'border-l-accent', hover: 'hover:bg-accent/5', progress: 'bg-accent' },
+  atrasado: { border: 'border-l-danger', hover: 'hover:bg-danger/5', progress: 'bg-danger' },
+  concluido: { border: 'border-l-success', hover: 'hover:bg-success/5', progress: 'bg-success' },
+  em_risco: { border: 'border-l-warning', hover: 'hover:bg-warning/5', progress: 'bg-warning' },
+  nao_iniciado: { border: 'border-l-muted', hover: 'hover:bg-muted/5', progress: 'bg-muted' },
+}
+
 export const ACTION_STATUS_LABEL: Record<ActionStatus, string> = {
   pendente: 'Pendente',
   em_andamento: 'Em Andamento',
@@ -80,4 +88,25 @@ export const REPORT_TYPE_LABEL: Record<ReportType, string> = {
   mensal: 'Mensal',
   executivo: 'Executivo',
   risco: 'Risco',
+}
+
+export const EXPENSE_CATEGORY_LABEL: Record<ExpenseCategory, string> = {
+  pessoal: 'Pessoal',
+  equipamentos: 'Equipamentos',
+  materiais: 'Materiais',
+  servicos: 'Serviços',
+  viagens: 'Viagens',
+  outros: 'Outros',
+}
+
+export const EXPENSE_STATUS_LABEL: Record<ExpenseStatus, string> = {
+  previsto: 'Previsto',
+  realizado: 'Realizado',
+  cancelado: 'Cancelado',
+}
+
+export const EXPENSE_STATUS_COLOR: Record<ExpenseStatus, string> = {
+  previsto: 'text-warning bg-warning/10',
+  realizado: 'text-success bg-success/10',
+  cancelado: 'text-muted bg-muted/10',
 }

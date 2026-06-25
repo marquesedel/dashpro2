@@ -4,10 +4,11 @@ interface ProgressBarProps {
   value: number
   className?: string
   showLabel?: boolean
+  barClassName?: string
 }
 
-export function ProgressBar({ value, className, showLabel }: ProgressBarProps) {
-  const color = value >= 75 ? 'bg-success' : value >= 40 ? 'bg-accent' : 'bg-warning'
+export function ProgressBar({ value, className, showLabel, barClassName }: ProgressBarProps) {
+  const color = barClassName ?? (value >= 75 ? 'bg-success' : value >= 40 ? 'bg-accent' : 'bg-warning')
 
   return (
     <div className={cn('flex items-center gap-2', className)}>
