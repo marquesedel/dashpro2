@@ -1,15 +1,22 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
+import { IconButton } from '@/components/ui/IconButton'
 import { ProgressBar } from '@/components/ui/ProgressBar'
-import { PROJECT_STATUS_LABEL, PROJECT_STATUS_COLOR, formatDate } from '@/lib/utils'
+import { cn, PROJECT_STATUS_LABEL, PROJECT_STATUS_COLOR, PROJECT_STATUS_ROW_STYLE, formatDate } from '@/lib/utils'
 import type { Project } from '@/types'
 
 export function ProjectRow({ project }: { project: Project }) {
+  const rowStyle = PROJECT_STATUS_ROW_STYLE[project.status]
+
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-black/5 transition-colors group"
+      className={cn(
+        'flex items-center gap-4 rounded-lg border-l-4 px-4 py-3 transition-colors group',
+        rowStyle.border,
+        rowStyle.hover,
+      )}
     >
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-foreground truncate">{project.name}</p>
@@ -17,11 +24,13 @@ export function ProjectRow({ project }: { project: Project }) {
           Prazo: {formatDate(project.end_date)}
         </p>
       </div>
-      <ProgressBar value={project.progress} showLabel className="w-32" />
+      <ProgressBar value={project.progress} showLabel className="w-32" barClassName={rowStyle.progress} />
       <Badge className={PROJECT_STATUS_COLOR[project.status]}>
         {PROJECT_STATUS_LABEL[project.status]}
       </Badge>
-      <ArrowRight className="h-4 w-4 text-muted group-hover:text-foreground transition-colors" />
+      <IconButton tone="accent" size="sm" tabIndex={-1} aria-hidden>
+        <ArrowRight className="h-3.5 w-3.5" />
+      </IconButton>
     </Link>
   )
 }

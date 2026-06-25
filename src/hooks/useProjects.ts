@@ -92,6 +92,8 @@ export function useCreateAction() {
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['actions', variables.project_id] })
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+      queryClient.invalidateQueries({ queryKey: ['project', variables.project_id] })
     },
   })
 }
@@ -115,6 +117,8 @@ export function useUpdateAction() {
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['actions', variables.project_id] })
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+      queryClient.invalidateQueries({ queryKey: ['project', variables.project_id] })
     },
   })
 }
@@ -129,6 +133,8 @@ export function useDeleteAction() {
     },
     onSuccess: (variables) => {
       queryClient.invalidateQueries({ queryKey: ['actions', variables.project_id] })
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+      queryClient.invalidateQueries({ queryKey: ['project', variables.project_id] })
     },
   })
 }
@@ -172,6 +178,20 @@ export function useUpdateRisk() {
       return data
     },
     onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['risks', variables.project_id] })
+    },
+  })
+}
+
+export function useDeleteRisk() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ id, project_id }: { id: string; project_id: string }) => {
+      const { error } = await supabase.from('risks').delete().eq('id', id)
+      if (error) throw error
+      return { id, project_id }
+    },
+    onSuccess: (variables) => {
       queryClient.invalidateQueries({ queryKey: ['risks', variables.project_id] })
     },
   })

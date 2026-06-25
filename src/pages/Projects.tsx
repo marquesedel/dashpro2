@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Plus, Search, ArrowRight } from 'lucide-react'
 import { useProjects, useProfiles, useCreateProject } from '@/hooks/useProjects'
 import { useAuth } from '@/hooks/useAuth'
@@ -9,9 +9,10 @@ import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Modal } from '@/components/ui/Modal'
 import { Badge } from '@/components/ui/Badge'
+import { IconButton } from '@/components/ui/IconButton'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { PageHeader } from '@/components/layout/PageHeader'
-import { PROJECT_STATUS_LABEL, PROJECT_STATUS_COLOR, formatDate, formatCurrency } from '@/lib/utils'
+import { PROJECT_STATUS_LABEL, PROJECT_STATUS_COLOR, PROJECT_STATUS_ROW_STYLE, formatDate, formatCurrency, cn } from '@/lib/utils'
 import type { ProjectStatus } from '@/types'
 
 const statusOptions = [
@@ -24,6 +25,7 @@ const statusOptions = [
 ]
 
 export default function Projects() {
+  const navigate = useNavigate()
   const { profile } = useAuth()
   const { data: projects, isLoading } = useProjects()
   const { data: profiles } = useProfiles()
@@ -142,8 +144,14 @@ export default function Projects() {
                   </tr>
                 ))
               ) : filtered.length > 0 ? (
-                filtered.map(project => (
-                  <tr key={project.id} className="border-b border-border/50 hover:bg-black/5 transition-colors">
+                filtered.map(project => {
+                  const rowStyle = PROJECT_STATUS_ROW_STYLE[project.status]
+                  return (
+                  <tr
+                    key={project.id}
+                    onClick={() => navigate(`/projects/${project.id}`)}
+                    className={cn('border-b border-border/50 cursor-pointer transition-colors', rowStyle.hover)}
+                  >
                     <td className="px-5 py-4">
                       <p className="font-medium text-foreground">{project.name}</p>
                       {project.description && (
@@ -156,7 +164,7 @@ export default function Projects() {
                       </Badge>
                     </td>
                     <td className="px-4 py-4 w-36">
-                      <ProgressBar value={project.progress} showLabel />
+                      <ProgressBar value={project.progress} showLabel barClassName={rowStyle.progress} />
                     </td>
                     <td className="px-4 py-4 text-muted whitespace-nowrap">{formatDate(project.end_date)}</td>
                     <td className="px-4 py-4 text-muted whitespace-nowrap">{formatCurrency(project.budget)}</td>
@@ -166,12 +174,13 @@ export default function Projects() {
                       </td>
                     )}
                     <td className="px-4 py-4">
-                      <Link to={`/projects/${project.id}`} className="text-muted hover:text-foreground transition-colors">
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
+                      <IconButton tone="accent" size="sm" tabIndex={-1} aria-hidden>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </IconButton>
                     </td>
                   </tr>
-                ))
+                  )
+                })
               ) : (
                 <tr>
                   <td colSpan={7} className="px-5 py-12 text-center text-muted">

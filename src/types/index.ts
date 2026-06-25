@@ -69,3 +69,18 @@ export interface Risk {
   status: RiskStatus
   created_at: string
 }
+
+export type ExpenseCategory = 'pessoal' | 'equipamentos' | 'materiais' | 'servicos' | 'viagens' | 'outros'
+export type ExpenseStatus = 'previsto' | 'realizado' | 'cancelado'
+
+export interface Expense {
+  id: string
+  project_id: string
+  description: string
+  category: ExpenseCategory
+  planned_amount: number
+  actual_amount: number
+  expense_date: string | null
+  status: ExpenseStatus
+  created_at: string
+}

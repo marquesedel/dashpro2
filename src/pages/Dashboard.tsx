@@ -167,7 +167,15 @@ export default function Dashboard() {
           {/* Projects list */}
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Projetos Recentes</CardTitle>
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
+                  <FolderKanban className="h-4 w-4 text-accent" />
+                </div>
+                <CardTitle>Projetos Recentes</CardTitle>
+                {projects && projects.length > 0 && (
+                  <Badge className="text-accent bg-accent/10">{projects.length}</Badge>
+                )}
+              </div>
               <Link to="/projects" className="text-xs text-accent hover:underline">Ver todos</Link>
             </CardHeader>
             {isLoading ? (
