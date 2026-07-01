@@ -163,8 +163,8 @@ export function ReportContent({ project, actions, risks, reportType, content, ge
         <div style={s.coverAccent} />
         <div style={s.coverBody}>
           <div style={s.coverLogo}>
-            <span style={s.coverLogoIcon}>DP</span>
-            <strong style={{ fontSize: 16, fontWeight: 700 }}>DashPro</strong>
+            <span style={s.coverLogoIcon}>RA</span>
+            <strong style={{ fontSize: 16, fontWeight: 700 }}>RelataAI</strong>
           </div>
           <div style={s.coverType}>{REPORT_TYPE_LABEL[reportType]}</div>
           <h1 style={s.coverTitle}>{project.name}</h1>
@@ -193,7 +193,7 @@ export function ReportContent({ project, actions, risks, reportType, content, ge
         </div>
         <div style={s.coverFooter}>
           <span>Gerado em {generatedAt}</span>
-          <span>DashPro — Gestão Inteligente de Projetos</span>
+          <span>RelataAI — Gestão Inteligente de Projetos</span>
         </div>
       </div>
 
@@ -370,7 +370,7 @@ export function ReportViewer({ project, actions, risks, reportType, content, gen
     if (!email) return
     const subject = encodeURIComponent(`Relatório ${REPORT_TYPE_LABEL[reportType]} — ${project.name}`)
     const body = encodeURIComponent(
-      `Olá!\n\nSegue o relatório ${REPORT_TYPE_LABEL[reportType].toLowerCase()} do projeto "${project.name}" gerado pelo DashPro.\n\nData de geração: ${generatedAt}\n\nPara visualizar o PDF completo, acesse a plataforma e abra o relatório.\n\nDashPro — Gestão Inteligente de Projetos`
+      `Olá!\n\nSegue o relatório ${REPORT_TYPE_LABEL[reportType].toLowerCase()} do projeto "${project.name}" gerado pelo RelataAI.\n\nData de geração: ${generatedAt}\n\nPara visualizar o PDF completo, acesse a plataforma e abra o relatório.\n\nRelataAI — Gestão Inteligente de Projetos`
     )
     window.open(`mailto:${email}?subject=${subject}&body=${body}`)
     setShowEmailInput(false)

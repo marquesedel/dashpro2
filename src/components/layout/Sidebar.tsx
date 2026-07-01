@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth'
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', badge: undefined },
   { to: '/projects', icon: FolderKanban, label: 'Projetos', badge: undefined },
-  { to: '/chat', icon: MessageSquareText, label: 'DashChat', badge: 'IA' },
+  { to: '/chat', icon: MessageSquareText, label: 'RelataChat', badge: 'IA' },
   { to: '/settings', icon: Settings, label: 'Configurações', badge: undefined },
 ]
 
@@ -18,9 +18,9 @@ export function Sidebar() {
     <aside className="flex h-screen w-60 flex-col border-r border-border bg-card">
       <div className="flex items-center gap-3 px-5 py-5 border-b border-border">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-          <span className="text-xs font-bold text-white">DP</span>
+          <span className="text-xs font-bold text-white">RA</span>
         </div>
-        <span className="text-base font-semibold text-foreground">DashPro</span>
+        <span className="text-base font-semibold text-foreground">RelataAI</span>
       </div>
 
       <nav className="flex-1 space-y-1 px-3 py-4">
