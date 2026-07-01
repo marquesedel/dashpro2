@@ -8,7 +8,7 @@ import Projects from '@/pages/Projects'
 import ProjectDetail from '@/pages/ProjectDetail'
 import ReportGenerator from '@/pages/ReportGenerator'
 import Settings from '@/pages/Settings'
-import DashChat from '@/pages/DashChat'
+import RelataChat from '@/pages/RelataChat'
 
 function AuthLoading() {
   return (
@@ -43,7 +43,7 @@ export default function App() {
           <Route path="projects" element={<Projects />} />
           <Route path="projects/:id" element={<ProjectDetail />} />
           <Route path="projects/:id/report" element={<ReportGenerator />} />
-          <Route path="chat" element={<DashChat />} />
+          <Route path="chat" element={<RelataChat />} />
           <Route path="settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />

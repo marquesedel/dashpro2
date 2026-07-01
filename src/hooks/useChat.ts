@@ -101,7 +101,7 @@ export function useChat() {
 
       setMessages(prev => [...prev, assistantMsg])
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Erro ao conectar com o DashChat.'
+      const msg = err instanceof Error ? err.message : 'Erro ao conectar com o RelataChat.'
       setError(msg)
       // Remove the optimistic user message on error
       setMessages(prev => prev.filter(m => m.id !== userMsg.id))

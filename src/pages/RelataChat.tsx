@@ -162,7 +162,7 @@ function EmptyState({ onSuggest }: { onSuggest: (s: string) => void }) {
       <div className="h-14 w-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-4 border border-accent/20">
         <Sparkles className="h-6 w-6 text-accent" />
       </div>
-      <h2 className="text-base font-semibold text-foreground mb-1">DashChat</h2>
+      <h2 className="text-base font-semibold text-foreground mb-1">RelataChat</h2>
       <p className="text-sm text-muted max-w-sm mb-8">
         Pergunte sobre seus projetos, tarefas, prazos e riscos. A IA tem contexto de todo o seu portfólio.
       </p>
@@ -182,7 +182,7 @@ function EmptyState({ onSuggest }: { onSuggest: (s: string) => void }) {
 }
 
 /* ── Main page ── */
-export default function DashChat() {
+export default function RelataChat() {
   const { data: projects } = useProjects()
   const { actionsByProject, risksByProject, loaded } = useAllProjectsData(projects)
   const { messages, loading, error, sendMessage, clearMessages } = useChat()
@@ -232,7 +232,7 @@ export default function DashChat() {
             <Sparkles className="h-4 w-4 text-accent" />
           </div>
           <div>
-            <h1 className="text-sm font-semibold text-foreground">DashChat</h1>
+            <h1 className="text-sm font-semibold text-foreground">RelataChat</h1>
             <p className="text-xs text-muted">Assistente inteligente de projetos</p>
           </div>
         </div>
